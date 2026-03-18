@@ -37,7 +37,7 @@ int main()
 	{
 		int rec_num;
 		MPI_Recv(&rec_num, 1, MPI_INT, 0, 50, MPI_COMM_WORLD, &sta);
-		//printf("\n Hello Manorooban.... \n My pid = %d \n Received Number is %d", pid, np, rec_num);
+		printf("\n Hello Manorooban.... \n My pid = %d \n Received Number is %d", pid, np, rec_num);
 	}
 	MPI_Finalize();
 	return 0;
