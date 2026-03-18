@@ -26,6 +26,12 @@ int main()
 		printf("\n Computing. . . \n my pid= %d \n no_of_process= %d", pid, np);
 	}
 	*/
+
+	if (pid == 0)
+	{
+		int num = 400;
+		MPI_Send(&num, 1, MPI_INT, 1, 50, MPI_COMM_WORLD);
+	}
 	MPI_Finalize();
 	return 0;
 }
