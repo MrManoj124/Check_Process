@@ -21,6 +21,10 @@ int main()
 	{
 		printf("\n Start to Study Parallel \n My Pid = %d \n  No_of_Process = %d", pid, np);
 	}
+	else
+	{
+		printf("\n Computing. . . \n my pid= %d \n no_of_process= %d", pid, np);
+	}
 	MPI_Finalize();
 	return 0;
 }
