@@ -9,7 +9,7 @@ int main()
 	MPI_Comm_rank(MPI_COMM_WORLD, &pid);
 	//printf("\n Hello world . . . \n My pid= %d \n No_of_process= %d", pid, np);
 
-	if (pid == 0) 
+	/*if (pid == 0)
 	{
 		printf("\n Helllo World.... \n My Pid = %d \n  No_of_Process = %d", pid, np);
 	}
@@ -25,6 +25,7 @@ int main()
 	{
 		printf("\n Computing. . . \n my pid= %d \n no_of_process= %d", pid, np);
 	}
+	*/
 	MPI_Finalize();
 	return 0;
 }
