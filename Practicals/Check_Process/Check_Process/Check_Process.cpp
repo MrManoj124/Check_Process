@@ -31,9 +31,14 @@ int main()
 	{
 		int num = 400;
 		MPI_Send(&num, 1, MPI_INT, 1, 50, MPI_COMM_WORLD);
-		printf("\n Hello world ... \n My pid = %d \n No_of_Process=%d", pid, np);
+		printf("\n Hello world 1 . . . \n My pid= %d \n No_of_process= %d", pid, np);
 	}
-	
+	else
+	{
+		int rec_num;
+		MPI_Recv(&rec_num, 1, MPI_INT, 0, 50, MPI_COMM_WORLD, &sta);
+		//printf("\n Hello Manorooban.... \n My pid = %d \n Received Number is %d", pid, np, rec_num);
+	}
 	MPI_Finalize();
 	return 0;
 }
