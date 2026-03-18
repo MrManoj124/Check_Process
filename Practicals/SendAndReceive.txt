@@ -1,0 +1,397 @@
+#include <mpi.h> 
+#include <stdio.h> 
+int main()
+{
+	int np;
+	int pid;
+	MPI_Init(NULL, NULL);
+	MPI_Comm_size(MPI_COMM_WORLD, &np);
+	MPI_Comm_rank(MPI_COMM_WORLD, &pid);
+
+
+	if (pid == 0)
+	{
+		int num = 3;
+
+		for (int i = 1; i < np; i++) {
+			MPI_Send(&num, 1, MPI_INT, i, 50, MPI_COMM_WORLD);
+		}
+		printf("Process %d: Value Send %d \n", pid, num);
+
+	}
+	else
+	{
+		int DEC_NUM;
+		MPI_Status status;
+
+		MPI_Recv(&DEC_NUM, 1, MPI_INT, 0, 50, MPI_COMM_WORLD, &status);
+
+		printf("Process %d: Value Received = %d\n", pid, DEC_NUM);
+
+
+	}
+
+
+	MPI_Finalize();
+	return 0;
+}
+
+// mpiexec -n No_of_Processors ConsoleApplication1.exe
+
+
+
+//Question  03
+
+03. Write code for creating tree-based topology, where PID 0 should have array with 6 values, 
+and send those elements another 5 processors except first element of array, 
+01. PID 2 has to send that received value to PID 1, which must be found in sum those 2 
+numbers.
+02. PID 5 has to send that received value to PID 4, which must be found in the sum of 2 
+numbers.
+
+
+You need an MPI tree-based communication where:
+
+PID 0 has an array of 6 values.
+
+It sends elements 1–5 to PIDs 1–5 (first element stays with PID 0).
+
+PID 2 → sends its value to PID 1, and PID 1 computes sum.
+
+PID 5 → sends its value to PID 4, and PID 4 computes sum.
+
+Below is a correct and complete MPI C program implementing this.
+
+#include <mpi.h>
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+
+    int pid, np;
+    int value;
+    int arr[6] = {10, 20, 30, 40, 50, 60}; // PID 0 array
+    MPI_Status sta;
+
+    MPI_Init(&argc, &argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &pid);
+    MPI_Comm_size(MPI_COMM_WORLD, &np);
+
+    if (np < 6) {
+        if (pid == 0)
+            printf("Run program with at least 6 processes\n");
+        MPI_Finalize();
+        return 0;
+    }
+
+    /* PID 0 distributes array elements */
+    if (pid == 0) {
+
+        for (int i = 1; i < 6; i++) {
+            MPI_Send(&arr[i], 1, MPI_INT, i, 10, MPI_COMM_WORLD);
+            printf("PID 0 sent %d to PID %d\n", arr[i], i);
+        }
+    }
+    else {
+        MPI_Recv(&value, 1, MPI_INT, 0, 10, MPI_COMM_WORLD, &sta);
+        printf("PID %d received %d from PID 0\n", pid, value);
+    }
+
+    /* PID 2 sends its value to PID 1 */
+    if (pid == 2) {
+        MPI_Send(&value, 1, MPI_INT, 1, 20, MPI_COMM_WORLD);
+        printf("PID 2 sent %d to PID 1\n", value);
+    }
+
+    if (pid == 1) {
+        int recv_val;
+        MPI_Recv(&recv_val, 1, MPI_INT, 2, 20, MPI_COMM_WORLD, &sta);
+        int sum = value + recv_val;
+        printf("PID 1 sum = %d + %d = %d\n", value, recv_val, sum);
+    }
+
+    /* PID 5 sends its value to PID 4 */
+    if (pid == 5) {
+        MPI_Send(&value, 1, MPI_INT, 4, 30, MPI_COMM_WORLD);
+        printf("PID 5 sent %d to PID 4\n", value);
+    }
+
+    if (pid == 4) {
+        int recv_val;
+        MPI_Recv(&recv_val, 1, MPI_INT, 5, 30, MPI_COMM_WORLD, &sta);
+        int sum = value + recv_val;
+        printf("PID 4 sum = %d + %d = %d\n", value, recv_val, sum);
+    }
+
+    MPI_Finalize();
+    return 0;
+}
+Communication Flow (Tree Logic)
+        PID 0
+   /  /  /  /  \
+ P1 P2 P3 P4 P5
+
+Extra communication:
+P2 ───► P1   (P1 computes sum)
+P5 ───► P4   (P4 computes sum)
+Example Values
+PID0 array = {10,20,30,40,50,60}
+
+PID1 gets 20
+PID2 gets 30
+PID3 gets 40
+PID4 gets 50
+PID5 gets 60
+
+PID2 → PID1 → sum = 20 + 30 = 50
+PID5 → PID4 → sum = 50 + 60 = 110
+Compile & Run
+mpicc tree_topology.c -o tree
+mpirun -np 6 ./tree
+
+
+
+
+
+
+//Question 02
+
+02. Ring Sum Computation, 
+01. Each process receives a partial sum from the previous process
+02. Adds its own rank
+03. Sends the updated sum to the next process
+
+
+
+This program implements Ring Sum Computation using MPI where:
+
+Each process receives a partial sum from the previous process
+
+Adds its own rank to the sum
+
+Sends the updated sum to the next process
+
+The processes are connected in a ring topology.
+
+MPI C Code – Ring Sum Computation
+#include <mpi.h>
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+
+    int pid, np;
+    int sum = 0;
+    int next, prev;
+    MPI_Status sta;
+
+    MPI_Init(&argc, &argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &pid);
+    MPI_Comm_size(MPI_COMM_WORLD, &np);
+
+    next = (pid + 1) % np;
+    prev = (pid - 1 + np) % np;
+
+    if (pid == 0) {
+
+        sum = pid;   // start with rank 0
+        MPI_Send(&sum, 1, MPI_INT, next, 10, MPI_COMM_WORLD);
+        printf("PID %d sent sum %d to PID %d\n", pid, sum, next);
+
+        MPI_Recv(&sum, 1, MPI_INT, prev, 10, MPI_COMM_WORLD, &sta);
+        printf("PID %d received final sum %d from PID %d\n", pid, sum, prev);
+    }
+    else {
+
+        MPI_Recv(&sum, 1, MPI_INT, prev, 10, MPI_COMM_WORLD, &sta);
+        printf("PID %d received sum %d from PID %d\n", pid, sum, prev);
+
+        sum = sum + pid;   // add its rank
+
+        MPI_Send(&sum, 1, MPI_INT, next, 10, MPI_COMM_WORLD);
+        printf("PID %d sent updated sum %d to PID %d\n", pid, sum, next);
+    }
+
+    MPI_Finalize();
+    return 0;
+}
+Ring Topology Communication
+P0 → P1 → P2 → P3 → ... → P(n-1)
+↑                               ↓
+└────────────── Ring ───────────┘
+
+Each process:
+
+Receives sum
+
+Adds its rank
+
+Passes it forward
+
+Example (np = 4)
+
+Ranks: 0,1,2,3
+
+Step	Process	Operation	Sum
+1	P0	Start sum = 0	0
+2	P1	0 + 1	1
+3	P2	1 + 2	3
+4	P3	3 + 3	6
+5	P0	Receives final sum	6
+
+Final output:
+
+Final Sum = 6
+Compile & Run
+mpicc ring_sum.c -o ring
+mpirun -np 4 ./ring
+
+
+
+
+//Question 04
+Below is the MPI C++ implementation following all the steps in your question.
+
+Logic
+
+P0
+
+Has array of 6 numbers.
+
+Sends arr[1..5] to P1–P5.
+
+P2 → P1
+
+P2 sends value to P1.
+
+P1 computes sum1 = value1 + value2.
+
+P5 → P4
+
+P5 sends value to P4.
+
+P4 computes sum2 = value4 + value5.
+
+P4 → P3
+
+P4 sends sum2 to P3.
+
+P3 computes sum3 = value3 + sum2.
+
+P1 and P3 → P0
+
+Send their sums to P0.
+
+P0
+
+Adds its own value with received sums and prints final total.
+
+MPI C++ Code
+#include <mpi.h>
+#include <iostream>
+using namespace std;
+
+int main(int argc, char* argv[])
+{
+    int pid, np;
+    int value;
+    int arr[6] = {10, 20, 30, 40, 50, 60};
+    MPI_Status sta;
+
+    MPI_Init(&argc, &argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &pid);
+    MPI_Comm_size(MPI_COMM_WORLD, &np);
+
+    if (np < 6) {
+        if (pid == 0)
+            cout << "Run with at least 6 processes\n";
+        MPI_Finalize();
+        return 0;
+    }
+
+    // Step 1: P0 sends array elements
+    if (pid == 0) {
+
+        for (int i = 1; i < 6; i++) {
+            MPI_Send(&arr[i], 1, MPI_INT, i, 10, MPI_COMM_WORLD);
+            cout << "P0 sent " << arr[i] << " to P" << i << endl;
+        }
+
+        int sum1, sum3;
+        MPI_Recv(&sum1, 1, MPI_INT, 1, 50, MPI_COMM_WORLD, &sta);
+        MPI_Recv(&sum3, 1, MPI_INT, 3, 60, MPI_COMM_WORLD, &sta);
+
+        int total = arr[0] + sum1 + sum3;
+
+        cout << "Final Total Sum = " << total << endl;
+    }
+    else {
+        MPI_Recv(&value, 1, MPI_INT, 0, 10, MPI_COMM_WORLD, &sta);
+        cout << "P" << pid << " received " << value << " from P0\n";
+    }
+
+    // Step 2: P2 -> P1
+    if (pid == 2) {
+        MPI_Send(&value, 1, MPI_INT, 1, 20, MPI_COMM_WORLD);
+    }
+
+    if (pid == 1) {
+        int v2;
+        MPI_Recv(&v2, 1, MPI_INT, 2, 20, MPI_COMM_WORLD, &sta);
+        int sum1 = value + v2;
+        cout << "P1 sum = " << value << " + " << v2 << " = " << sum1 << endl;
+
+        MPI_Send(&sum1, 1, MPI_INT, 0, 50, MPI_COMM_WORLD);
+    }
+
+    // Step 3: P5 -> P4
+    if (pid == 5) {
+        MPI_Send(&value, 1, MPI_INT, 4, 30, MPI_COMM_WORLD);
+    }
+
+    if (pid == 4) {
+        int v5;
+        MPI_Recv(&v5, 1, MPI_INT, 5, 30, MPI_COMM_WORLD, &sta);
+        int sum2 = value + v5;
+        cout << "P4 sum = " << value << " + " << v5 << " = " << sum2 << endl;
+
+        MPI_Send(&sum2, 1, MPI_INT, 3, 40, MPI_COMM_WORLD);
+    }
+
+    // Step 4: P4 -> P3
+    if (pid == 3) {
+        int v4sum;
+        MPI_Recv(&v4sum, 1, MPI_INT, 4, 40, MPI_COMM_WORLD, &sta);
+        int sum3 = value + v4sum;
+        cout << "P3 sum = " << value << " + " << v4sum << " = " << sum3 << endl;
+
+        MPI_Send(&sum3, 1, MPI_INT, 0, 60, MPI_COMM_WORLD);
+    }
+
+    MPI_Finalize();
+    return 0;
+}
+Communication Structure
+        P0
+   / / / / \
+  P1 P2 P3 P4 P5
+
+P2 → P1 → P0
+P5 → P4 → P3 → P0
+Example Values
+Array in P0 = {10,20,30,40,50,60}
+
+P1 = 20
+P2 = 30
+P3 = 40
+P4 = 50
+P5 = 60
+
+P1 sum = 20 + 30 = 50
+P4 sum = 50 + 60 = 110
+P3 sum = 40 + 110 = 150
+
+Final total at P0
+= 10 + 50 + 150
+= 210
+Compile & Run
+mpic++ program.cpp -o program
+mpirun -np 6 ./program

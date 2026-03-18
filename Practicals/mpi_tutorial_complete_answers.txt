@@ -1,0 +1,185 @@
+MPI Tutorial 02 – Complete Answers
+
+  -------------------------------------------------
+  Question 01 – Ring Topology Communication (MPI)
+  -------------------------------------------------
+
+#include <mpi.h> #include <stdio.h>
+
+int main(int argc, char *argv[]) {
+
+    int pid, np;
+    int value = 100;
+
+    MPI_Init(&argc, &argv);
+
+    MPI_Comm_rank(MPI_COMM_WORLD, &pid);
+    MPI_Comm_size(MPI_COMM_WORLD, &np);
+
+    if(pid == 0)
+    {
+        MPI_Send(&value,1,MPI_INT,1,0,MPI_COMM_WORLD);
+        MPI_Recv(&value,1,MPI_INT,np-1,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+
+        printf("Process %d received final value %d\n",pid,value);
+    }
+
+    else if(pid != np-1)
+    {
+        MPI_Recv(&value,1,MPI_INT,pid-1,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+
+        printf("Process %d received %d\n",pid,value);
+
+        MPI_Send(&value,1,MPI_INT,pid+1,0,MPI_COMM_WORLD);
+    }
+
+    else
+    {
+        MPI_Recv(&value,1,MPI_INT,pid-1,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+
+        printf("Last Process %d received %d\n",pid,value);
+
+        MPI_Send(&value,1,MPI_INT,0,0,MPI_COMM_WORLD);
+    }
+
+    MPI_Finalize();
+
+    return 0;
+
+}
+
+  ------------------------------------
+  Question 02 – Ring Sum Computation
+  ------------------------------------
+
+#include <mpi.h> #include <stdio.h>
+
+int main(int argc, char *argv[]) {
+
+    int pid, np;
+    int sum = 0;
+
+    MPI_Init(&argc,&argv);
+
+    MPI_Comm_rank(MPI_COMM_WORLD,&pid);
+    MPI_Comm_size(MPI_COMM_WORLD,&np);
+
+    if(pid == 0)
+    {
+        sum = pid;
+
+        MPI_Send(&sum,1,MPI_INT,1,0,MPI_COMM_WORLD);
+
+        MPI_Recv(&sum,1,MPI_INT,np-1,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+
+        printf("Final Ring Sum = %d\n",sum);
+    }
+
+    else if(pid != np-1)
+    {
+        MPI_Recv(&sum,1,MPI_INT,pid-1,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+
+        sum = sum + pid;
+
+        MPI_Send(&sum,1,MPI_INT,pid+1,0,MPI_COMM_WORLD);
+    }
+
+    else
+    {
+        MPI_Recv(&sum,1,MPI_INT,pid-1,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+
+        sum = sum + pid;
+
+        MPI_Send(&sum,1,MPI_INT,0,0,MPI_COMM_WORLD);
+    }
+
+    MPI_Finalize();
+
+    return 0;
+
+}
+
+  -------------------------------------------------
+  Question 03 – Tree Based Topology Communication
+  -------------------------------------------------
+
+#include <mpi.h> #include <stdio.h>
+
+int main(int argc, char *argv[]) { int pid, value, sum; int arr[6] =
+{5,10,15,20,25,30};
+
+    MPI_Init(&argc,&argv);
+
+    MPI_Comm_rank(MPI_COMM_WORLD,&pid);
+
+    if(pid == 0)
+    {
+        for(int i=1;i<6;i++)
+        {
+            MPI_Send(&arr[i],1,MPI_INT,i,0,MPI_COMM_WORLD);
+        }
+
+        int s1,s2;
+
+        MPI_Recv(&s1,1,MPI_INT,1,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+        MPI_Recv(&s2,1,MPI_INT,3,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+
+        int total = arr[0] + s1 + s2;
+
+        printf("Final Sum = %d\n",total);
+    }
+
+    else if(pid==2)
+    {
+        MPI_Recv(&value,1,MPI_INT,0,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+        MPI_Send(&value,1,MPI_INT,1,0,MPI_COMM_WORLD);
+    }
+
+    else if(pid==1)
+    {
+        int v1,v2;
+        MPI_Recv(&v1,1,MPI_INT,0,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+        MPI_Recv(&v2,1,MPI_INT,2,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+
+        sum = v1 + v2;
+
+        MPI_Send(&sum,1,MPI_INT,0,0,MPI_COMM_WORLD);
+    }
+
+    else if(pid==5)
+    {
+        MPI_Recv(&value,1,MPI_INT,0,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+        MPI_Send(&value,1,MPI_INT,4,0,MPI_COMM_WORLD);
+    }
+
+    else if(pid==4)
+    {
+        int v1,v2;
+        MPI_Recv(&v1,1,MPI_INT,0,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+        MPI_Recv(&v2,1,MPI_INT,5,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+
+        sum = v1 + v2;
+
+        MPI_Send(&sum,1,MPI_INT,3,0,MPI_COMM_WORLD);
+    }
+
+    else if(pid==3)
+    {
+        int v1,v2;
+        MPI_Recv(&v1,1,MPI_INT,0,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+        MPI_Recv(&v2,1,MPI_INT,4,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+
+        sum = v1 + v2;
+
+        MPI_Send(&sum,1,MPI_INT,0,0,MPI_COMM_WORLD);
+    }
+
+    MPI_Finalize();
+
+    return 0;
+
+}
+
+Compile: mpicc program.c -o program
+
+Run: mpirun -np 6 ./program
