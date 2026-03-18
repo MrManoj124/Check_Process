@@ -13,6 +13,11 @@ int main()
 	{
 		printf("\n Helllo World.... \n My Pid = %d \n  No_of_Process = %d", pid, np);
 	}
+	else if (pid == 1)
+	{
+		printf("\n Mr Manorooban \n My Pid = %d \n  No_of_Process = %d", pid, np);
+	}
+	
 	MPI_Finalize();
 	return 0;
 }
