@@ -31,7 +31,9 @@ int main()
 	{
 		int num = 400;
 		MPI_Send(&num, 1, MPI_INT, 1, 50, MPI_COMM_WORLD);
+		printf("\n Hello world ... \n My pid = %d \n No_of_Process=%d", pid, np);
 	}
+	
 	MPI_Finalize();
 	return 0;
 }
