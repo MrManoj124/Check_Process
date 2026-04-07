@@ -7,10 +7,10 @@ int main()
 	int pid;
 
 	MPI_Init(NULL, NULL);
-	MPI_Comm_Size(MPI_COMM_WORLD, &np);
-	MPI_Comm_Rank(MPI_COMM_WORLD, &pid);
+	MPI_Comm_size(MPI_COMM_WORLD, &np);
+	MPI_Comm_rank(MPI_COMM_WORLD, &pid);
 
-	printf("\n Mr Manorooban.... \n My pid = %d  \n No_Of_Process=%d, pid, np");
+	printf("\n Mr Manorooban.... \n My pid = %d  \n No_Of_Process=%d");
 
 	MPI_Finalize();
 	return 0;
