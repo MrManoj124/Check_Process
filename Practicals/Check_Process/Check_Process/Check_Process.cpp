@@ -10,7 +10,7 @@ int main()
 	MPI_Comm_size(MPI_COMM_WORLD, &np);
 	MPI_Comm_rank(MPI_COMM_WORLD, &pid);
 
-	printf("\n Mr Manorooban.... \n My pid = %d  \n No_Of_Process=%d");
+	printf("\n Mr Manorooban.... \n My pid = %d  \n No_Of_Process=%d", pid, np );
 
 	MPI_Finalize();
 	return 0;
