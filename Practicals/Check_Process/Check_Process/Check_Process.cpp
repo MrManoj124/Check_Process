@@ -74,7 +74,8 @@ int main() {
 		}
 		printf("\n Process %d Computed sum = %d", pid, sum);
 
-
+		//Send sum back to Process 0
+		MPI_Send(&sum, 1, MPI_INT, 1, 50, MPI_COMM_WORLD);
 	}
 
 	MPI_Finalize();
