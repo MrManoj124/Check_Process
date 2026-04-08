@@ -64,7 +64,17 @@ int main() {
 		int rec_nums[4];
 		int sum = 0;
 
-		
+		//Receive Array from process 0
+		MPI_Recv(rec_nums, 1, MPI_INT, 1, 50, MPI_COMM_WORLD, &sta);
+		printf("\n Process %d received from : \n ", pid);
+		for (int i = 1; i < 4; i++)
+		{
+			printf("%d", rec_nums);
+			sum += rec_nums[i];
+		}
+		printf("\n Process %d Computed sum = %d", pid, sum);
+
+
 	}
 
 	MPI_Finalize();
