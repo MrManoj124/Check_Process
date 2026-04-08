@@ -45,7 +45,10 @@ int main() {
 	MPI_Comm_size(MPI_COMM_WORLD, &np);
 	MPI_Comm_rank(MPI_COMM_WORLD, &pid);
 
-	printf("\n Hey Buddy... \n MyPid=%d \n No_Of_Process=%d", pid, np);
+	if (pid == 0)
+	{
+
+	}
 
 	MPI_Finalize();
 	return 0;
