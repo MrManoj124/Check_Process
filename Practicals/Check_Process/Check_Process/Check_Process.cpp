@@ -59,6 +59,10 @@ int main() {
 		MPI_Recv(&sum_result, 1, MPI_INT, 1, 50, MPI_COMM_WORLD, &sta);
 		printf("\n Process %d Received sum = %d \n", pid, sum_result);
 	}
+	else if (pid == 1)
+	{
+
+	}
 
 	MPI_Finalize();
 	return 0;
