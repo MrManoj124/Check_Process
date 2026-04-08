@@ -48,6 +48,12 @@ int main() {
 	if (pid == 0)
 	{
 		int nums[] = { 2,4,5,3,6,7,8 };
+		int sum_result;
+
+		//send Array01 to Process 01
+		MPI_Send(nums, 4, MPI_INT, 1, 50, MPI_COMM_WORLD);
+		printf("\n Process id %d send an Array", pid);
+
 
 	}
 
