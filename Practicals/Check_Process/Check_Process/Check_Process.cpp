@@ -100,7 +100,10 @@ int main() {
 	if (pid == 0)
 	{
 		int num = 3;
-
+		for (int i = 1; i < np; i++) {
+			MPI_Send(&num, 1, MPI_INT, i, 50, MPI_COMM_WORLD);
+		}
+		printf("\n ")
 	}
 
 }
