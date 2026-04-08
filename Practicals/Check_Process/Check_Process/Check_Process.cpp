@@ -69,7 +69,7 @@ int main() {
 		printf("\n Process %d received from : \n ", pid);
 		for (int i = 1; i < 4; i++)
 		{
-			printf("%d", rec_nums);
+			printf("%d", rec_nums[i]);
 			sum += rec_nums[i];
 		}
 		printf("\n Process %d Computed sum = %d", pid, sum);
