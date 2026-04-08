@@ -35,7 +35,7 @@ int main()
 }
 */
 
-#include <mpi.h>
+/*#include <mpi.h>
 #include <stdio.h>
 int main() {
 	int pid;
@@ -82,3 +82,7 @@ int main() {
 	MPI_Finalize();
 	return 0;
 }
+*/
+
+
+//Start to practice with OnetoMany Operation
