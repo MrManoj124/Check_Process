@@ -45,6 +45,7 @@ int main() {
 	MPI_Comm_size(MPI_COMM_WORLD, &np);
 	MPI_Comm_rank(MPI_COMM_WORLD, &pid);
 
+	MPI_Status sta;
 	if (pid == 0)
 	{
 		int nums[] = { 2,4,5,3,6,7,8 };
@@ -54,7 +55,9 @@ int main() {
 		MPI_Send(nums, 4, MPI_INT, 1, 50, MPI_COMM_WORLD);
 		printf("\n Process id %d send an Array", pid);
 
-
+		//Receive sum back from process 01
+		MPI_Recv(&sum_result, 1, MPI_INT, 1, 50, MPI_COMM_WORLD, &sta);
+		printf("\n Process %d Received sum = %d \n", pid, sum_result);
 	}
 
 	MPI_Finalize();
