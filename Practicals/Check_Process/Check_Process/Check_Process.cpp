@@ -61,7 +61,10 @@ int main() {
 	}
 	else if (pid == 1)
 	{
+		int rec_nums[4];
+		int sum = 0;
 
+		
 	}
 
 	MPI_Finalize();
