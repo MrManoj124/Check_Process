@@ -245,3 +245,25 @@ Process 7 sent 70 to Process 0
 
 
 //How we can implement ring process or topology with this technique
+
+
+
+🔁 Flow of Your Program
+Step-by-step:
+MPI_Init → Start parallel world
+MPI_Comm_size → Know total processes
+MPI_Comm_rank → Identify yourself
+if (pid == 0) → Master logic
+MPI_Send → Send data
+MPI_Recv → Receive data
+MPI_Status → Get message info
+MPI_Finalize → End MPI
+🧠 Simple Analogy
+
+Think of MPI like a courier system:
+
+MPI_Send → Send package
+MPI_Recv → Receive package
+tag → Label on package
+rank → Address (who you are)
+MPI_Status → Delivery receipt
