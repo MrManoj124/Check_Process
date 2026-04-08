@@ -105,5 +105,12 @@ int main() {
 		}
 		printf("\n Process %d sent the value = %d \n ", pid, num);
 	}
+	else {
+		int DEC_NUM;
+		MPI_Status status;
+
+		MPI_Recv(&DEC_NUM, 1, MPI_INT, 0, 50, MPI_COMM_WORLD, &status);
+
+	}
 
 }
