@@ -16,7 +16,19 @@ int main()
 	{
 		printf("\n Hey Guys let's study Parallal Computing  \n From = %d \n No_Of_Process is = %d", pid, np);
 	}
-	
+	else if (pid == 1)
+	{
+		printf("\n Parallel Computing is for Storage efficiency  \n From = %d \n No_Of_Process is = %d", pid, np);
+	}
+	else if (pid == 2)
+	{
+		printf("\n Let's crack it  \n From = %d \n No_Of_Process is = %d", pid, np);
+	}
+	else
+	{
+
+		printf("\n crack it with MPI  \n From = %d \n No_Of_Process is = %d", pid, np);
+	}
 
 	MPI_Finalize();
 	return 0;
