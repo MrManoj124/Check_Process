@@ -110,7 +110,10 @@ int main() {
 		MPI_Status status;
 
 		MPI_Recv(&DEC_NUM, 1, MPI_INT, 0, 50, MPI_COMM_WORLD, &status);
-		printf("\n Process %d Received the value = &d \n", pid, DEC_NUM);
+		printf("Process %d Received the value = &d \n", pid, DEC_NUM);
 	}
+
+	MPI_Finalize();
+	return 0;
 
 }
