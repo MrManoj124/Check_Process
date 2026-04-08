@@ -103,7 +103,7 @@ int main() {
 		for (int i = 1; i < np; i++) {
 			MPI_Send(&num, 1, MPI_INT, i, 50, MPI_COMM_WORLD);
 		}
-		printf("\n ")
+		printf("\n Process %d sent the value = %d \n ", pid, num);
 	}
 
 }
