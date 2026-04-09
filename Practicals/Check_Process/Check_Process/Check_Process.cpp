@@ -119,13 +119,15 @@ int main() {
 	{
 		int received_Number;
 		MPI_Status status;
-
-		MPI_Recv(&received_Number, 1, MPI_INT, 1, 50, MPI_COMM_WORLD, &status);
-		printf("\n Data Received %d from pid = %d ", received_Number, pid);
+		for (int i = 1; i < np; i++) {
+			MPI_Recv(&received_Number, 1, MPI_INT, i, 50, MPI_COMM_WORLD, &status);
+			printf("\n Data Received %d from pid = %d ", received_Number, pid);
+		}
 	}
 	else {
 		int num = pid * 10; //each process send a different value 
-
+		MPI_Send(&num, 1, MPI_INT, 1, 50, MPI_COMM_WORLD);
+		printf("\n Process %d Sent the value = %d", pid, num);
 	}
 
 	MPI_Finalize();
