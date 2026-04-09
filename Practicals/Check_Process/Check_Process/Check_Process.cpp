@@ -123,6 +123,10 @@ int main() {
 		MPI_Recv(&received_Number, 1, MPI_INT, 1, 50, MPI_COMM_WORLD, &status);
 		printf("\n Data Received %d from pid = %d ", received_Number, pid);
 	}
+	else {
+		int num = pid * 10; //each process send a different value 
+
+	}
 
 	MPI_Finalize();
 	return 0;
