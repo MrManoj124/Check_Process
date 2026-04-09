@@ -141,7 +141,11 @@ int main() {
 		for (int i = 1; i < 4; i++) 
 			MPI_Send(&arr2[i * 8], 8, MPI_INT, i, 50, MPI_COMM_WORLD);
 
-		
+		printf("\n Process %d Received : \n ", pid);
+
+		for (int i = 1; i < 8; i++) {
+			printf("%d", arr2[i]);
+			printf("\n");
 		}
 		
 	}
