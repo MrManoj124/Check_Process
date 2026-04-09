@@ -97,7 +97,7 @@ int main() {
 	MPI_Comm_size(MPI_COMM_WORLD, &np);
 	MPI_Comm_rank(MPI_COMM_WORLD, &pid);
 
-	if (pid == 0)
+	/*if (pid == 0)
 	{
 		int num = 3;
 		for (int i = 1; i < np; i++) {
@@ -110,7 +110,18 @@ int main() {
 		MPI_Status status;
 
 		MPI_Recv(&DEC_NUM, 1, MPI_INT, 0, 50, MPI_COMM_WORLD, &status);
-		printf("Process %d Received the value = &d \n", pid, DEC_NUM);
+		printf("\n Process %d Received the value = %d \n ", pid, DEC_NUM);
+	}
+	*/
+
+
+	if (pid == 0)
+	{
+		int received_Number;
+		MPI_Status status;
+
+		MPI_Recv(&received_Number, 1, MPI_INT, 1, 50, MPI_COMM_WORLD, &status);
+
 	}
 
 	MPI_Finalize();
