@@ -130,6 +130,9 @@ int main() {
 		printf("\n Process %d Sent the value = %d to process 0", pid, num);
 	}*/
 
+	MPI_Status sta;
+
+
 	if (pid == 0)
 	{
 		int arr1[32] = { 45, 41, 92, 79, 11, 83, 97, 91, 98, 67, 53, 34, 68, 72, 76, 12, 78, 59, 64, 06, 89, 62, 26, 23, 17, 35, 36, 18, 25, 55, 43, 56 };
@@ -158,6 +161,17 @@ int main() {
 					break;
 				}
 			}
+		}
+
+		printf("\n process %d , local_intersection=%d\n ", pid, master_count);
+		printf("\n");
+
+		int total_count = master_count, local_count;
+
+		for (int i = 1; i < 4; i++)
+		{
+			MPI_Recv(&local_count, 1, MPI_INT, i, 50, MPI_COMM_WORLD, &sta);
+			total_count = total_count + local_count;;
 		}
 		
 	}
