@@ -135,7 +135,17 @@ int main() {
 		int arr1[32] = { 45, 41, 92, 79, 11, 83, 97, 91, 98, 67, 53, 34, 68, 72, 76, 12, 78, 59, 64, 06, 89, 62, 26, 23, 17, 35, 36, 18, 25, 55, 43, 56 };
 		int arr2[32] = { 05, 18, 96, 63, 23, 10, 42, 34, 58, 84, 35, 61, 51, 41, 01, 13,45, 22, 53, 44, 56, 96, 62, 71, 67, 72, 78, 46, 83, 91, 97, 98 };
 
-		
+		for (int i = 1; i < 4; i++)
+			MPI_Send(&arr1, 32, MPI_INT, i, 50, MPI_COMM_WORLD);
+
+		for (int i = 1; i < 4; i++) 
+			MPI_Send(&arr2[i * 8], 8, MPI_INT, i, 50, MPI_COMM_WORLD);
+
+		printf("\n Process %d Received : \n ", pid);
+
+		for (int i = 1; i < 8; i++) {
+			printf("%d", arr2[i]);
+			printf("\n");
 		}
 		
 	}
