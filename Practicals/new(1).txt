@@ -218,7 +218,7 @@ int main()
     else
     {
         int num = pid * 10;  // each process sends a different value
-        MPI_Send(&num, 1, MPI_INT, 0, 50, MPI_COMM_WORLD);
+        MPI_Send(&num, 1, MPI_INT, 1, 50, MPI_COMM_WORLD);
         printf("Process %d sent %d to Process 0\n", pid, num);
     }
 
