@@ -121,7 +121,7 @@ int main() {
 		MPI_Status status;
 
 		MPI_Recv(&received_Number, 1, MPI_INT, 1, 50, MPI_COMM_WORLD, &status);
-
+		printf("\n Data Received %d from pid = %d ", received_Number, pid);
 	}
 
 	MPI_Finalize();
