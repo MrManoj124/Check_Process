@@ -171,7 +171,7 @@ int main() {
 		for (int i = 1; i < 4; i++)
 		{
 			MPI_Recv(&local_count, 1, MPI_INT, i, 50, MPI_COMM_WORLD, &sta);
-			total_count = total_count + local_count;;
+			total_count = total_count + local_count;
 		}
 		
 	}
