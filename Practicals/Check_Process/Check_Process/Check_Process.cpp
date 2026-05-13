@@ -142,7 +142,7 @@ int main() {
 			MPI_Send(&arr1, 32, MPI_INT, i, 50, MPI_COMM_WORLD);
 
 		for (int i = 1; i < 4; i++) 
-			MPI_Send(&arr2[i * 8], 8, MPI_INT, i, 50, MPI_COMM_WORLD);
+			MPI_Send(&arr2[i * 8], 8, MPI_INT, i, 55, MPI_COMM_WORLD);
 
 		printf("\n Process %d Received : \n ", pid);
 
@@ -170,13 +170,52 @@ int main() {
 
 		for (int i = 1; i < 4; i++)
 		{
-			MPI_Recv(&local_count, 1, MPI_INT, i, 50, MPI_COMM_WORLD, &sta);
+			MPI_Recv(&local_count, 1, MPI_INT, i, 60, MPI_COMM_WORLD, &sta);
 			total_count = total_count + local_count;
 		}
+
+		float dice = (2.0 * total_count) / (32 / 32);
+		printf("Dice Coefficeint = %3.f \n ", dice);
+		printf("Similarity = %2.f%%\n", dice * 100);
 		
 	}
+	else {
+
+		int recv1[32];
+		MPI_Recv(&recv1, 32, MPI_INT, 0, 50, MPI_COMM_WORLD, &sta);
+
+		int recv2[8];
+		MPI_Recv(&recv1, 8, MPI_INT, 0, 55, MPI_COMM_WORLD, &sta);
+
+		printf("\n process %d Received : \n", pid);
+		for (int i = 0; i < 8; i++)
+		{
+			printf("%d", recv2[i]);
+			printf("\n");
+		}
+
+		int count = 0;
+		for (int i = 0; i < 32; i++)
+		{
+			for (int j = 0; j < 8; j++)
+			{
+				if (recv2[j] == recv1[i]) {
+					count++;
+					break;
+				}
+			}
+		}
+		printf("Process %d localIntersection =%d \n ", pid, count);
+		printf("\n");
+
+		MPI_Send(&count, 1, MPI_INT, 0, 60, MPI_COMM_WORLD);
+
+	}
+
 
 	MPI_Finalize();
 	return 0;
+
+	printf("\n Process %d Finalized \n ", pid);
 
 }
