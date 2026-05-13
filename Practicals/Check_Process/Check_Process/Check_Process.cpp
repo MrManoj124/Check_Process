@@ -216,6 +216,4 @@ int main() {
 	MPI_Finalize();
 	return 0;
 
-	printf("\n Process %d Finalized \n ", pid);
-
 }
