@@ -21,7 +21,12 @@ int main(){
     else if(pid == 1){
         int Even_numbers[10];
         MPI_Recv(Even_numbers, 10, MPI_INT, 0, 50, MPI_COMM_WORLD, &sta);
-        
+        // calculated the total of the even numbers and process it
+        int total = 0;
+        for(int i=0; i<10; i++){
+            total += Even_numbers[i];
+        }
+        printf
     }
 
     MPI_finalize();
