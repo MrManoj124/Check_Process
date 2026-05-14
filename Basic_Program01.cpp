@@ -11,11 +11,14 @@ int main(){
     // Send and receive messages through MPI_Send and MPI_Recv
     if(pid == 0){
         int data = 100;
-        MPI_Send(&data, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
+        MPI_Send(&data, 1, MPI_INT, 1, 50, MPI_COMM_WORLD);
         printf("Process %d send data %d to process 1 \n", pid, data);
     }
-
-
+    else if(pid ==1){
+        MPI_Recv(&data, 1, MPI_INT, 0, 50, MPI_COMM_WORLD, &sta);
+        printf("Process %d receive data %d from process 0 \n", pid, data);
+    }
+    
     MPI_finalize();
     return 0;
 }
