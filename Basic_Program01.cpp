@@ -9,7 +9,12 @@ int main(){
     MPI_Status sta;
     
     // Send and receive messages through MPI_Send and MPI_Recv
-    
+    if(pid == 0){
+        int data = 100;
+        MPI_Send(&data, 1, MPI_INT, 1, 0, MPI_COMM_WORLD);
+        printf("Process %d send data %d to process 1 \n", pid, data);
+    }
+
 
     MPI_finalize();
     return 0;
