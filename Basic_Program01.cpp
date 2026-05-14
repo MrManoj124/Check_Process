@@ -14,6 +14,8 @@ int main(){
         for(int i=0; i<10; i++){
             Even_numbers[i] = 2*i;
         }
+        MPI_Send(Even_numbers, 10, MPI_INT, 1, 50, MPI_COMM_WORLD);
+        printf("Process %d send even numbers to process 1 \n", pid);
        
     }
 
