@@ -11,6 +11,8 @@ int main(){
     if (pid == 0)
 	{
 		int Send_Num[5] = { 10,20,30,40,50 };
+		MPI_Send(&Send_Num, 5, MPI_INT, 1, 50, MPI_COMM_WORLD);
+		printf("My processor id is %d and I'm the sender. \n", pid);
 	}
     MPI_finalize();
     return 0;
