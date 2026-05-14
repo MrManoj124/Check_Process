@@ -8,7 +8,20 @@ int main(){
     MPI_Comm_rank(MPI_COMM_WORLD, &pid);
     MPI_Status sta;
     
-    // Send and receive messages through MPI_Send and MPI_Recv
+    // Check the even numbers from the master process and send it to slave 
+    if(pid == 0){
+        
+       
+    }
+
+    MPI_finalize();
+    return 0;
+}
+
+//printf("Hello world from process %d of %d \n", pid, np);
+
+// 
+/*Send and receive messages through MPI_Send and MPI_Recv
     if(pid == 0){
         int data = 100;
         MPI_Send(&data, 1, MPI_INT, 1, 50, MPI_COMM_WORLD);
@@ -18,9 +31,4 @@ int main(){
         MPI_Recv(&data, 1, MPI_INT, 0, 50, MPI_COMM_WORLD, &sta);
         printf("Process %d receive data %d from process 0 \n", pid, data);
     }
-    
-    MPI_finalize();
-    return 0;
-}
-
-//printf("Hello world from process %d of %d \n", pid, np);
+    */
