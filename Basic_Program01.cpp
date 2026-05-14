@@ -7,8 +7,12 @@ int main(){
     MPI_Comm_size(MPI_COMM_WORLD, &np);
     MPI_Comm_rank(MPI_COMM_WORLD, &pid);
     MPI_Status sta;
-    printf("Hello world from process %d of %d \n", pid, np);
+    
+    // Send and receive messages through MPI_Send and MPI_Recv
+    
 
     MPI_finalize();
     return 0;
 }
+
+//printf("Hello world from process %d of %d \n", pid, np);
