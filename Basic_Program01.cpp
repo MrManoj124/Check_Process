@@ -26,7 +26,7 @@ int main(){
         for(int i=0; i<10; i++){
             total += Even_numbers[i];
         }
-        printf
+        printf("Process %d receive even numbers from process 0 and the total is %d \n", pid, total);
     }
 
     MPI_finalize();
