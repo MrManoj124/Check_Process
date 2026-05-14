@@ -8,7 +8,24 @@ int main(){
     MPI_Comm_rank(MPI_COMM_WORLD, &pid);
     MPI_Status sta;
 
-    if (pid == 0)
+    // check the master process and 
+    // send the prime numbers to the slave
+    if(pid == 0){
+        int Prime_numbers[10];
+        int count = 0;
+        
+    }
+    
+    }
+    MPI_finalize();
+    return 0;
+}
+
+
+
+/* 
+
+if (pid == 0)
 	{
 		int Send_Num[5] = { 10,20,30,40,50 };
 		MPI_Send(&Send_Num, 5, MPI_INT, 1, 50, MPI_COMM_WORLD);
@@ -24,7 +41,5 @@ int main(){
 		{
 			printf("%d \n",Recv_msg[i]);
 		}
-    }
-    MPI_finalize();
-    return 0;
-}
+
+*/
