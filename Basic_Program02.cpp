@@ -14,6 +14,12 @@ int main(){
 		MPI_Send(&Send_Num, 5, MPI_INT, 1, 50, MPI_COMM_WORLD);
 		printf("My processor id is %d and I'm the sender. \n", pid);
 	}
+    if(pid == 1){
+        int Recv_msg[5];
+		int sum = 0;
+        MPI_Recv(&Recv_msg, 5, MPI_INT, 0, 50, MPI_COMM_WORLD, &sta);
+        
+    }
     MPI_finalize();
     return 0;
 }
