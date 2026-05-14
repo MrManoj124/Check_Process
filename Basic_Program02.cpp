@@ -26,7 +26,11 @@ int main(){
         MPI_Send(Prime_numbers, 10, MPI_INT, 1, 50, MPI_COMM_WORLD);
         printf("Process %d send prime numbers to process 1 \n ", pid);
     }
-    
+    // get the Prime numbers from the master process and print it
+    else if(pid == 1){
+        int Prime_numbers[10];
+        MPI_Recv(Prime_numbers, 10, MPI_INT, 0, 50, MPI_COMM_WORLD, &sta);
+        
     }
     MPI_finalize();
     return 0;
