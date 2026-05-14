@@ -30,6 +30,7 @@ int main(){
     else if(pid == 1){
         int Prime_numbers[10];
         MPI_Recv(Prime_numbers, 10, MPI_INT, 0, 50, MPI_COMM_WORLD, &sta);
+        printf("Process %d receive prime numbers from process 0 and the prime numbers are : %d \n ", pid, Prime_numbers);
         
     }
     MPI_finalize();
