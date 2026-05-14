@@ -22,6 +22,9 @@ int main(){
                 }
             }
         }
+
+        MPI_Send(Prime_numbers, 10, MPI_INT, 1, 50, MPI_COMM_WORLD);
+        printf("Process %d send prime numbers to process 1 \n ", pid);
     }
     
     }
