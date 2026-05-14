@@ -16,7 +16,12 @@ int main(){
         }
         MPI_Send(Even_numbers, 10, MPI_INT, 1, 50, MPI_COMM_WORLD);
         printf("Process %d send even numbers to process 1 \n", pid);
-       
+    }
+    //Receive the even numbers from master process and print it 
+    else if(pid == 1){
+        int Even_numbers[10];
+        MPI_Recv(Even_numbers, 10, MPI_INT, 0, 50, MPI_COMM_WORLD, &sta);
+        
     }
 
     MPI_finalize();
