@@ -10,7 +10,10 @@ int main(){
     
     // Check the even numbers from the master process and send it to slave 
     if(pid == 0){
-        
+        int Even_numbers[10];
+        for(int i=0; i<10; i++){
+            Even_numbers[i] = 2*i;
+        }
        
     }
 
