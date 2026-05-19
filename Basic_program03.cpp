@@ -27,5 +27,10 @@ int main(){
         MPI_Recv(&Recv_msg, 5, MPI_INT, 0, 50, MPI_COMM_WORLD, &sta);
         printf("My processor id is %d and I'm the receiver. \n", pid);
         printf("Received Messages are,");
+        for(int i=0; i<5; i++){
+            sum += Recv_msg[i];
+        }
+        MPI_Send(&sum, 1, _MPI_INT, 0, 55, MPI_COMM_WORLD);
     }
+    
 }
