@@ -17,5 +17,8 @@ int main(){
         int Send_Num[5] = {10,20,30,40,50};
         MPI_Send(Send_Num, 5, MPI_INT, 1, 50, MPI_COMM_WORLD);
         printf("My processor id is %d and I'm the sender. \n", pid);
-      }
+        int recv;
+        MPI_Recv(&recv, 1, MPI_INT, 1, 50, MPI_COMM_WORLD, &sta);
+        printf("My processor id is %d and I receive the num from %d \n", pid, recv);  
+    }
 }
