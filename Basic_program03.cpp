@@ -30,7 +30,8 @@ int main(){
         for(int i=0; i<5; i++){
             sum += Recv_msg[i];
         }
-        MPI_Send(&sum, 1, _MPI_INT, 0, 55, MPI_COMM_WORLD);
+        MPI_Send(&sum, 1, MPI_INT, 0, 55, MPI_COMM_WORLD);
     }
-    
+    MPI_Finalize();
+    return 0;
 }
