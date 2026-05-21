@@ -44,7 +44,7 @@ int main(){
             }
         }
         MPI_Send(&total_marks, 5, MPI_INT, 0, 55, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-        
+        printf("Total marks of each student are calculated and sent to master. \n");
     }
 
 }
