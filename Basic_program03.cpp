@@ -1,7 +1,7 @@
 // Program 03 Execution
 
+// =====Marks Distribution and Total Marks Calculation using MPI====
 
-//Marks Distribution and Total Marks Calculation Program
 // master can store main 5 subject marks of 5 students and send the marks to worker(pid == 1) and worker can calculate the total marks of each student and send it back to master.
 // and master can print and store the total marks of each student with another array.
 #include<mpi.h>
@@ -14,7 +14,12 @@ int main(){
     MPI_Comm_size(MPI_COMM_WORLD, &np);
     MPI_Comm_rank(MPI_COMM_WORLD, &pid);
 
-    
+    if(pid  == 0){
+        int marks[5][5]={{84,50,95,60,84},
+                        {84,95,67,84,67},
+                        {74,84,65,94,81},
+                        {84,80,90,76,82},
+                        {84,64,87,95,80}};
 
 
                     }
