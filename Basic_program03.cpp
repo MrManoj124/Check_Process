@@ -1,16 +1,37 @@
 // Program 03 Execution
 
 
-
-
-
+//Marks Distribution and Total Marks Calculation Program
 // master can store main 5 subject marks of 5 students and send the marks to worker(pid == 1) and worker can calculate the total marks of each student and send it back to master.
 // and master can print and store the total marks of each student with another array.
+#include<mpi.h>
+#include<string.h>
+#include<stdio.h>
+int main(){
+    int pid;
+    int np;
+    MPI_Init(NULL, NULL);
+    MPI_Comm_size(MPI_COMM_WORLD, &np);
+    MPI_Comm_rank(MPI_COMM_WORLD, &pid);
+
+    
+
+
+                    }
+                    
+    MPI_Finalize();
+    return 0;
+}
+
+
+
+
 
 
 /* PID 0 has an array of integer values, It should send the array to pid 1 and 
 pid 1 should receive the values and find the sum
 */
+/* 
 #include<mpi.h>
 #include<stdio.h>
 #include<string.h>
@@ -43,3 +64,4 @@ int main(){
     MPI_Finalize();
     return 0;
 }
+*/
