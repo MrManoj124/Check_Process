@@ -31,6 +31,13 @@ int main(){
         printf("Student %d : %d \n", i+1, total_marks[i]);
     }
 
+    if(pid == 1){
+        int recv_marks[5][5];
+        MPI_Recv(&recv_marks, 25, MPI_INT, 0, 50, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        printf("My Processor id is %d and I'm the worker. \n", pid);
+        
+    }
+
 }
                     
     MPI_Finalize();
