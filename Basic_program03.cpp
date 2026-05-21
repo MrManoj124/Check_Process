@@ -35,7 +35,15 @@ int main(){
         int recv_marks[5][5];
         MPI_Recv(&recv_marks, 25, MPI_INT, 0, 50, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
         printf("My Processor id is %d and I'm the worker. \n", pid);
-        
+
+        int total_marks[5];
+        for(int i=0; i<5; i++){
+            total_marks[i]=0;
+            for(int j=0; j<5; j++){
+                total_marks[i] += recv_marks[i][j];
+            }
+        }
+        MPI_Send();
     }
 
 }
