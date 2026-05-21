@@ -43,7 +43,8 @@ int main(){
                 total_marks[i] += recv_marks[i][j];
             }
         }
-        MPI_Send();
+        MPI_Send(&total_marks, 5, MPI_INT, 0, 55, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        
     }
 
 }
