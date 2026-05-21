@@ -23,7 +23,15 @@ int main(){
         
     MPI_Send(&marks, 25, MPI_INT, 1, 50, MPI_COMM_WORLD);
     printf("My Processor id is %d and I'm the master. \n", pid);
-                    }
+           
+    int total_marks[5];
+    MPI_Recv(total_marks, 5, MPI_INT, 1, 55, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    printf("Total marks of each student are, \n");
+    for(int i=0; i<5; i++){
+        printf("Student %d : %d \n", i+1, total_marks[i]);
+    }
+
+}
                     
     MPI_Finalize();
     return 0;
