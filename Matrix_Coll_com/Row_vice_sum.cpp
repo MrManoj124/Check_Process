@@ -36,6 +36,14 @@ int main(){
             printf("%d ", RowB[i]);
         }
         printf("\n");
+
+        // Each processor should substract the corresponding elements
+        int RowSum[4];
+        for(int i=0; i<4; i++){
+            RowSum[i] = RowA[i] - RowB[i];
+        }
+
+        
     }
 
     MPI_Finalize();
