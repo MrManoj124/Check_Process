@@ -1,8 +1,16 @@
 // Program 03 Execution
+
+
+
+
+
+// master can store main 5 subject marks of 5 students and send the marks to worker(pid == 1) and worker can calculate the total marks of each student and send it back to master.
+// and master can print and store the total marks of each student with another array.
+
+
 /* PID 0 has an array of integer values, It should send the array to pid 1 and 
 pid 1 should receive the values and find the sum
 */
-
 #include<mpi.h>
 #include<stdio.h>
 #include<string.h>
