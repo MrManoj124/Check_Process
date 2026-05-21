@@ -22,7 +22,15 @@ int main(){
                            {15, 7, 3, 9},
                            {8, 14, 11, 5}};
 
+        // Distribute the one raw of both matrices to 4 processors Using MPI_Scatter
+        int RowA[4], RowB[4];
+        MPI_Scatter(MatA, 4, MPI_INT, RowA, 4, MPI_INT, 0, MPI_COMM_WORLD);
+        MPI_Scatter(MatB, 4, MPI_INT, RowB, 4, MPI_INT, 0, MPI_COMM_WORLD);
+        printf("My processor id is %d and I'm the master. \n", pid);
+        printf("Received row from MatA : ");
+        
     }
+
     MPI_Finalize();
     return 0;
 }
