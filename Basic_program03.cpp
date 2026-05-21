@@ -20,8 +20,9 @@ int main(){
                         {74,84,65,94,81},
                         {84,80,90,76,82},
                         {84,64,87,95,80}};
-
-
+        
+    MPI_Send(&marks, 25, MPI_INT, 1, 50, MPI_COMM_WORLD);
+    printf("My Processor id is %d and I'm the master. \n", pid);
                     }
                     
     MPI_Finalize();
