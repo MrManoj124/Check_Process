@@ -28,7 +28,14 @@ int main(){
         MPI_Scatter(MatB, 4, MPI_INT, RowB, 4, MPI_INT, 0, MPI_COMM_WORLD);
         printf("My processor id is %d and I'm the master. \n", pid);
         printf("Received row from MatA : ");
-        
+        for(int i=0; i<4; i++){
+            printf("%d", RowA[i]);
+        }
+        printf("\n Received row from MatB : ");
+        for(int i=0; i<4; i++){
+            printf("%d ", RowB[i]);
+        }
+        printf("\n");
     }
 
     MPI_Finalize();
