@@ -12,8 +12,10 @@ int main(){
 
     // Initializes the array in master process
     if(pid == 0){
-
-    }
+        int Arr[4][4]={{2, 5, 8, 11},
+                        {14, 17, 20, 23},
+                        {26, 29, 32, 35},
+                        {38, 41, 44, 47}};
 
     MPI_Finalize();
     return 0;
