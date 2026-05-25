@@ -48,8 +48,7 @@ int main(){
         MPI_Gather(&localCount, 1, MPI_INT, gatheredCount, 1, MPI_INT, 0, MPI_COMM_WORLD);
   //  e. Use MPI_Reduce to calculate the total number of even elements
         MPI_Reduce(&localCount, &totaleven, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
-
-
+        
     // f. Processor 0 should display:
        // i. Local even counts
        // ii. Total even count
