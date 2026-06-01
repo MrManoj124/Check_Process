@@ -51,6 +51,8 @@ int main(){
     MPI_Reduce(&primary_Element, &max_primary, 1, MPI_INT, MPI_MAX, 0, MPI_COMM_WORLD);
 
     ii. Maximum secondary diagonal element
+    int max_secondary;
+    MPI_Reduce(&seondary_Element, &max_secondary, 1, MPI_INT, MPI_MAX, 0, MPI_COMM_WORLD);
 
     e. Processor 0 should print both maximum values.
 
