@@ -42,6 +42,8 @@ int main(){
 
     
     ii. Secondary diagonal element
+    int secondary_index = 3 - pid;
+    secondary_Element = row[secondary_index];
 
     d. Use MPI_Reduce to determine:
     i. Maximum primary diagonal element
