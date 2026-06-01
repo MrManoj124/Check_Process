@@ -12,7 +12,19 @@ int main(){
     int A[4][4];
     int row[4];
 
-    
+    a.Processor 0 initializes the following matrix A of size 4 x 4.
+    if (pid ==0){
+        int tempA[4][4] = {{12, 5, 18, 9},
+                           {27, 14, 3, 20},
+                           {8, 31, 16, 11},
+                           {25, 7, 22, 4}};
+        
+        for(int i=0; i<4; i++){
+            for(int j=0; j<4; j++){
+                A[i][j]=tempA[i][j];
+            }
+        }
+    }
 
    
 
