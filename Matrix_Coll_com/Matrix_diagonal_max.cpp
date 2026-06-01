@@ -38,15 +38,18 @@ int main(){
     c. Each processor should identify:
     i. Primary diagonal element
     int primary_index = pid;
-    primary_Element = row[primary_index];
+    primary_Element = row[primary_index]; // This will be valid only for pid < 4, which is the case here since we have 4 processors.
 
     
     ii. Secondary diagonal element
     int secondary_index = 3 - pid;
-    secondary_Element = row[secondary_index];
+    secondary_Element = row[secondary_index]; // This will be valid only for pid < 4, which is the case here since we have 4 processors.
 
     d. Use MPI_Reduce to determine:
     i. Maximum primary diagonal element
+    int max_primary;
+    MPI_Reduce(&primary_Element, &max_primary, 1, MPI_INT, MPI_MAX, 0, MPI_COMM_WORLD);
+
     ii. Maximum secondary diagonal element
 
     e. Processor 0 should print both maximum values.
