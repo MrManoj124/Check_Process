@@ -63,7 +63,7 @@ int main(){
                 printf("\n");
             }
         }
-        ii. Maximum matrix element
+        
 
 
     MPI_Finalize();
