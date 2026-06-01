@@ -1,0 +1,34 @@
+#include<mpi.h>
+#include<stdio.h>
+#include<string>
+int main(){
+    int np;
+    int pid;
+
+    MPI_Init(NULL, NULL);
+    MPI_Comm_size(MPI_COMM_WORLD, &np);
+    MPI_Comm_rank(MPI_COMM_WORLD, &pid);
+
+    int A[4][4];
+    int row[4];
+
+    
+
+   
+
+
+
+   d. Use MPI_Gather to collect the sorted rows into Matrix B.
+
+
+   e. Use MPI_Reduce to determine the maximum element in the sorted matrix.
+
+
+   f. Processor 0 should display:
+        i. Sorted matrix
+        ii. Maximum matrix element
+
+
+    MPI_Finalize();
+    return 0;
+}
