@@ -26,6 +26,9 @@ int main(){
         }
     }
 
+   b. Distribute rows equally among processors using MPI_Scatter.
+   MPI_Scatter(A, 4, MPI_INT, row, 4, MPI_INT, 0, MPI_COMM_WORLD);
+
    
 
 
