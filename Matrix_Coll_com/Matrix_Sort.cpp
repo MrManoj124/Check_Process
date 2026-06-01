@@ -29,7 +29,17 @@ int main(){
    b. Distribute rows equally among processors using MPI_Scatter.
    MPI_Scatter(A, 4, MPI_INT, row, 4, MPI_INT, 0, MPI_COMM_WORLD);
 
-   
+   c. Each processor should sort its assigned row in ascending order.
+   int temp;
+   for(int i=0; i<4; i++){
+        for(int j=0; j<3; j++){
+            if(row[j] > row[j+1]){
+                temp = row[j];
+                row[j]=row[j+1];
+                row[j+1]=temp;
+            }
+        }
+   }
 
 
 
