@@ -45,13 +45,24 @@ int main(){
    d. Use MPI_Gather to collect the sorted rows into Matrix B.
    int B[4][4];
    MPI_Gather(row, 4, MPI_INT, B, 4, MPI_INT, 0, MPI_COMM_WORLD);
-   
+
 
    e. Use MPI_Reduce to determine the maximum element in the sorted matrix.
-
+   int local_max = row[3];
+   int global_max;
+   MPI_Reduce(&local_max, &global_max, 1, MPI_INT, MPI_MAX, 0, MPI_COMM_WORLD);
 
    f. Processor 0 should display:
         i. Sorted matrix
+        if(pid == 0){
+            printf("Sorted Matrix B : \n");
+            for(int i=0; i<4; i++){
+                for(int j=0; j<4; j++){
+                    printf("%d ", B[i][j]);
+                }
+                printf("\n");
+            }
+        }
         ii. Maximum matrix element
 
 
