@@ -42,9 +42,10 @@ int main(){
    }
 
 
-
    d. Use MPI_Gather to collect the sorted rows into Matrix B.
-
+   int B[4][4];
+   MPI_Gather(row, 4, MPI_INT, B, 4, MPI_INT, 0, MPI_COMM_WORLD);
+   
 
    e. Use MPI_Reduce to determine the maximum element in the sorted matrix.
 
