@@ -55,6 +55,10 @@ int main(){
     MPI_Reduce(&seondary_Element, &max_secondary, 1, MPI_INT, MPI_MAX, 0, MPI_COMM_WORLD);
 
     e. Processor 0 should print both maximum values.
+    if(pid == 0){
+        printf("Maximum primary diagonal element: %d\n", max_primary);
+        printf("Maximum secondary diagonal element: %d\n", max_secondary);
+    }
 
     MPI_Finalize();
     return 0;
