@@ -35,9 +35,12 @@ int main(){
     b. Distribute rows among processors using MPI_Scatter
     MPI_Scatter(A, 4, MPI_INT, row, 4, MPI_INT, 0, MPI_COMM_WORLD);
 
+    c. Each processor should identify:
+    i. Primary diagonal element
+    int primary_index = pid;
+    primary_Element = row[primary_index];
+
     
-
-
     ii. Secondary diagonal element
 
     d. Use MPI_Reduce to determine:
