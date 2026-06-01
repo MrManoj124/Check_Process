@@ -63,7 +63,11 @@ int main(){
                 printf("\n");
             }
         }
-        
+
+        ii. Maximum matrix element
+        if(pid == 0){
+            printf("Maximum element in the sorted matrix : %d\n", global_max);
+        }
 
 
     MPI_Finalize();
