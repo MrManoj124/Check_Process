@@ -10,6 +10,12 @@ int main(){
     int np; // Variable to store the number of processes
     int pid; // Variable to store the rank of the process
 
+    MPI_Comm_size(MPI_COMM_WORLD, &np); // Get the total number of processes
+    MPI_Comm_rank(MPI_COMM_WORLD, &pid); // Get the rank of the process
+    MPI_Status sta;  // Variable to store the status of MPI operations 
+
+    
+
 
 
 
