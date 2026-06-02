@@ -14,7 +14,15 @@ int main(){
     MPI_Comm_rank(MPI_COMM_WORLD, &pid); // Get the rank of the process
     MPI_Status sta;  // Variable to store the status of MPI operations 
 
-    
+    if (pid == 0)
+	{
+		int Send_msg = 50;
+		for (int i = 1; i<np; i++)
+		{
+			MPI_Send(&Send_msg, 1, MPI_INT, i, 50, MPI_COMM_WORLD);
+			printf("My processor id is %d and I'm the sender to pid %d. \n", pid, i);
+		}
+	}
 
 
 
