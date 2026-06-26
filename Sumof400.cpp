@@ -1,6 +1,8 @@
 #include<mpi.h>;
 #include<sting.h>;
 #include<stdio.h>;
+
+#define n = 400;
 int main(){
     int np, pid;
 
