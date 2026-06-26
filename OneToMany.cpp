@@ -29,6 +29,7 @@ int main(){
 		MPI_Recv(&Recv_msg, 1, MPI_INT, 0, 50, MPI_COMM_WORLD, &sta);
 		printf("My processor id is %d and I'm the receiver. Message is %d \n", pid, Recv_msg);
 	}
+    
 
 
 
