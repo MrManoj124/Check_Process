@@ -38,7 +38,23 @@ int main(){
         if(local_data[i]>local_max[i]);
     }
 
-    
+    if(pid == 0){
+        int global_max = local_max;
+        for(int i=1; i<np; i++){
+            int temp;
+            MPI Status sta;
+            MPI_Recv(&temp, 1, MPI_INT, i, 60, MPI_COMM_WORLD, &sta);
+
+            if(temp > global_max){
+                global_max = temp;
+            }
+        }
+        printf("Maximum Number is %d \n", global_max);
+    }
+        else{
+            MPI_Send(&local_max, 1, MPI_INT, 0, 60, MPI_COMM_WORLD);
+        }
+    }
 
     MPI_Finalize();
 }
