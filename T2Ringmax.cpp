@@ -18,7 +18,13 @@ int main(){
         MPI_Recv(&sum, 1, MPI_INT, np-1, 20, MPI_COMM_WORLD, &sta);
         printf("Process %d Final Ring sum %d \n", pid, sum);
     }
-    
+    else{
+
+        MPI_Recv(&sum, 1, MPI_INT, pid - 1, 20, MPI_COMM_WORLD, &sta);
+        sum += pid;
+        printf("Process %d send the sum %d \n", pid, sum);
+        MPI_Send(&sum, 1, MPI_INT, (pid+1)%np, 20, MPI_COMM_WORLD);
+    }
 
     MPI_Finalize();
 }
