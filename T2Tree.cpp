@@ -24,6 +24,11 @@ int main(){
         int total = data[0]+sum1+sum2;
         printf("Final dum %d \n", total);
     }
-    
+    else if(pid == 1){
+        MPI_Recv(&value, 1, MPI_INT, 0, 30, MPI_COM_WORLD, &sta );
+        int from2;
+        MPI_Recv(&from2, 1, MPI_INT, 2, 35, MPI_COMM_WORLD, &sta})
+    }
+
     MPI_Finalize();
 }
